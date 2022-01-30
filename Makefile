@@ -9,32 +9,21 @@ docker-build:  ## Build the Docker image used in this project
 	docker build . --progress tty -t udacity/mlops_tests:latest ;
 	rm .netrc
 
+list-mlflow-envs:  ## Get a list of the MlFlow environments to remove
+	@conda info --envs | grep mlflow | cut -f1 -d" " ;
+
+clean-mlflow-envs:  ## Clean conda environments created using MlFlow
+	@for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done ;
+
+linter:  ## Lint library files
+	docker-compose \
+	-p mlops \
+	-f docker-compose \
+	run --rm -w /opt mlops \
+	bash scripts/linter-code.sh src/*.py
+
 bash:  ## Open an interactive terminal in Docker container
 	docker-compose \
 	-p mlops \
 	-f docker-compose.yml \
 	run --rm mlops
-
-download-model:  ## Download model from Wandb
-	docker-compose \
-	-p download-model \
-	-f docker-compose.yml \
-	run --rm download-model
-
-download-data:  ## Download test data to batch predict
-	docker-compose \
-	-p download-data \
-	-f docker-compose.yml \
-	run --rm download-data
-
-offline-inference:  ## Run offline inference on the test set
-	docker-compose \
-	-p offline-inference \
-	-f docker-compose.yml \
-	run --rm offline-inference
-
-online-inference:  ## Run online inference on the test set
-	docker-compose \
-	-p online-inference \
-	-f docker-compose.yml \
-	run --service-ports --rm online-inference
