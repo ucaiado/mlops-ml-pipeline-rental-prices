@@ -1,0 +1,106 @@
+version: '2'
+services:
+  mlops:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+      - "5000:5000"
+    volumes:
+      - ./model:/model
+      - ./data:/data
+      - ./data_sample.json:/opt/data_sample.json
+      - ./online_inference.py:/opt/online_inference.py
+
+  download-model:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+      - "5000:5000"
+    volumes:
+      - ./model:/model
+      - ./data:/data
+      - ./data_sample.json:/opt/data_sample.json
+      - ./online_inference.py:/opt/online_inference.py
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && wandb artifact get genre_classification_prod/model_export:prod --root model
+      """
+
+  download-data:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+      - "5000:5000"
+    volumes:
+      - ./model:/model
+      - ./data:/data
+      - ./data_sample.json:/opt/data_sample.json
+      - ./online_inference.py:/opt/online_inference.py
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && wandb artifact get genre_classification_prod/data_test.csv:latest --root data
+      """
+
+  offline-inference:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+      - "5000:5000"
+    volumes:
+      - ./model:/model
+      - ./data:/data
+      - ./data_sample.json:/opt/data_sample.json
+      - ./online_inference.py:/opt/online_inference.py
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && mlflow models predict --no-conda -t csv -i data/data_test.csv -m model
+      """
+
+  online-inference:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+      - "5000:5000"
+    volumes:
+      - ./model:/model
+      - ./data:/data
+      - ./data_sample.json:/opt/data_sample.json
+      - ./online_inference.py:/opt/online_inference.py
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && mlflow models serve --no-conda -m model -h 0.0.0.0
+      """
