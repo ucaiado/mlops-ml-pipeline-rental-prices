@@ -27,3 +27,9 @@ bash:  ## Open an interactive terminal in Docker container
 	-p mlops \
 	-f docker-compose.yml \
 	run --rm mlops
+
+download-data:  ## Execute Download step
+	docker-compose \
+	-p download-data \
+	-f docker-compose.yml \
+	run --rm download-data
