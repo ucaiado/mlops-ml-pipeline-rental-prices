@@ -13,3 +13,43 @@ services:
       - "5000:5000"
     volumes:
       - ./scripts:/opt/scripts
+      - ./steps:/opt/steps
+
+  download-data:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+    volumes:
+      - ./scripts:/opt/scripts
+      - ./steps:/opt/steps
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && mlflow run --no-conda /opt/steps/
+      -P steps=download
+      """
+
+  perform-eda:
+    image: udacity/mlops_tests
+    container_name: mlops_tests
+    user: root
+    mem_limit: 6G
+    mem_reservation: 256M
+    cpus: 2
+    ports:
+      - "8080:8080"
+      - "8888:8888"
+    volumes:
+      - ./scripts:/opt/scripts
+      - ./steps:/opt/steps
+    command: >
+      bash -c """
+      source activate mlops_exercise
+      && mlflow run --no-conda /opt/steps/src/eda
+      """
