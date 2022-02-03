@@ -18,9 +18,9 @@ clean-mlflow-envs:  ## Clean conda environments created using MlFlow
 linter:  ## Lint library files
 	docker-compose \
 	-p mlops \
-	-f docker-compose \
+	-f docker-compose.yml \
 	run --rm -w /opt mlops \
-	bash scripts/linter-code.sh src/*.py
+	bash scripts/linter-code.sh steps/src/basic_cleaning/*.py
 
 bash:  ## Open an interactive terminal in Docker container
 	docker-compose \
@@ -39,3 +39,9 @@ perform-eda:  ## Start jupyter notebook
 	-p perform-eda \
 	-f docker-compose.yml \
 	run  --service-ports  --rm perform-eda
+
+basic-cleaning:  ## Perform the basic cleaning step
+	docker-compose \
+	-p basic-cleaning \
+	-f docker-compose.yml \
+	run --rm basic-cleaning
