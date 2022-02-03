@@ -6,35 +6,35 @@ entry_points:
     parameters:
 
       input_artifact:
-        description: ## ADD DESCRIPTION
+        description: Name of the input artifact stored in W&B
         type: string
 
       output_artifact:
-        description: ## ADD DESCRIPTION
+        description: Type for the output artifact
         type: string
 
       output_type:
-        description: ## ADD DESCRIPTION
+        description: Type for the output artifact
         type: string
 
       output_description:
-        description: ## ADD DESCRIPTION
+        description: Short description of the output artifact
         type: string
 
       min_price:
-        description: ## ADD DESCRIPTION
+        description: Lower bound value of property prices
         type: string
 
       max_price:
-        description: ## ADD DESCRIPTION
+        description: Upper bound value of property prices
         type: string
 
       min_days:
-        description: ## ADD DESCRIPTION
+        description: Lower bound value of minimum_nights in days
         type: string
 
       max_days:
-        description: ## ADD DESCRIPTION
+        description: Upper bound value of minimum_nights in days
         type: string
 
 

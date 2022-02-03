@@ -124,7 +124,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--max_days",
         type=int,
-        help="Lower bound value of minimum_nights in days",
+        help="Upper bound value of minimum_nights in days",
         required=True
     )
 
