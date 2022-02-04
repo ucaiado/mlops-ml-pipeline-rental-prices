@@ -1,9 +1,16 @@
+#!/usr/bin/env python
+"""
+Verify that the data does not contain surprises
+"""
 import pandas as pd
 import numpy as np
 import scipy.stats
 
 
-def test_column_names(data):
+def test_column_names(data: pd.DataFrame) -> None:
+    """
+    Test if there are all expected columns in the data
+    """
 
     expected_colums = [
         "id",
@@ -30,7 +37,11 @@ def test_column_names(data):
     assert list(expected_colums) == list(these_columns)
 
 
-def test_neighborhood_names(data):
+def test_neighborhood_names(data: pd.DataFrame) -> None:
+    """
+    Test proper longitude and latitude boundaries for properties in and around
+    NYC
+    """
 
     known_names = ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"]
 
@@ -40,19 +51,24 @@ def test_neighborhood_names(data):
     assert set(known_names) == set(neigh)
 
 
-def test_proper_boundaries(data: pd.DataFrame):
+def test_proper_boundaries(data: pd.DataFrame) -> None:
     """
-    Test proper longitude and latitude boundaries for properties in and around NYC
+    Test proper longitude and latitude boundaries for properties in and around
+    NYC
     """
-    idx = data['longitude'].between(-74.25, -73.50) & data['latitude'].between(40.5, 41.2)
+    idx = data['longitude'].between(-74.25, -73.50) & data['latitude'].between(
+        40.5, 41.2)
 
     assert np.sum(~idx) == 0
 
 
-def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float):
+def test_similar_neigh_distrib(
+    data: pd.DataFrame,
+    ref_data: pd.DataFrame,
+    kl_threshold: float) -> None:
     """
-    Apply a threshold on the KL divergence to detect if the distribution of the new data is
-    significantly different than that of the reference dataset
+    Apply a threshold on the KL divergence to detect if the distribution of the
+     new data is significantly different than that of the reference dataset
     """
     dist1 = data['neighbourhood_group'].value_counts().sort_index()
     dist2 = ref_data['neighbourhood_group'].value_counts().sort_index()
@@ -63,3 +79,31 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
 ########################################################
 # Implement here test_row_count and test_price_range   #
 ########################################################
+
+
+def test_row_count(data: pd.DataFrame) -> None:
+    """
+    Test if the dataset has a reasonable size
+    """
+    assert 15000 < data.shape[0] < 1000000
+
+
+def test_price_range(
+    data: pd.DataFrame,
+    min_price: float,
+    max_price: float) -> None:
+    """
+    Test if the properties in the dataset have a reasonable price range
+    """
+    assert data["price"].between(min_price, max_price).all()
+
+
+def test_minimum_nights_range(
+    data: pd.DataFrame,
+    min_days: float,
+    max_days: float) -> None:
+    """
+    Test if the properties in the dataset have a reasonable minimum_nights
+    range
+    """
+    assert data["minimum_nights"].between(min_days, max_days).all()

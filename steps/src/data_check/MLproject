@@ -25,4 +25,12 @@ entry_points:
         description: Maximum accepted price
         type: float
 
-    command: "pytest . -vv --csv {csv} --ref {ref} --kl_threshold {kl_threshold} --min_price {min_price} --max_price {max_price}"
+      min_days:
+        description: Minimum accepted days to test properties minimum_nights
+        type: float
+
+      max_days:
+        description: Maximum accepted days to test properties minimum_nights
+        type: float
+
+    command: "pytest . -vv --csv {csv} --ref {ref} --kl_threshold {kl_threshold} --min_price {min_price} --max_price {max_price}  --min_days {min_days} --max_days {max_days}"

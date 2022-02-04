@@ -20,7 +20,7 @@ linter:  ## Lint library files
 	-p mlops \
 	-f docker-compose.yml \
 	run --rm -w /opt mlops \
-	bash scripts/linter-code.sh steps/src/basic_cleaning/*.py
+	bash scripts/linter-code.sh steps/src/data_check/*.py
 
 bash:  ## Open an interactive terminal in Docker container
 	docker-compose \
@@ -45,3 +45,9 @@ basic-cleaning:  ## Perform the basic cleaning step
 	-p basic-cleaning \
 	-f docker-compose.yml \
 	run --rm basic-cleaning
+
+data-check:  ## Perform some tests on the dataset
+	docker-compose \
+	-p data-check \
+	-f docker-compose.yml \
+	run --rm data-check
