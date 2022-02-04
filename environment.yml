@@ -20,6 +20,7 @@ dependencies:
   - pillow=8.1.2
   - ipython=7.21.0
   - notebook=6.2.0
+  - cookiecutter=1.7.2
   - pylint
   - autopep8
   - pytest

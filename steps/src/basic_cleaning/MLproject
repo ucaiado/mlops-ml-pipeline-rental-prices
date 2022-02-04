@@ -1,0 +1,42 @@
+name: basic_cleaning
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      input_artifact:
+        description: Name of the input artifact stored in W&B
+        type: string
+
+      output_artifact:
+        description: Type for the output artifact
+        type: string
+
+      output_type:
+        description: Type for the output artifact
+        type: string
+
+      output_description:
+        description: Short description of the output artifact
+        type: string
+
+      min_price:
+        description: Lower bound value of property prices
+        type: string
+
+      max_price:
+        description: Upper bound value of property prices
+        type: string
+
+      min_days:
+        description: Lower bound value of minimum_nights in days
+        type: string
+
+      max_days:
+        description: Upper bound value of minimum_nights in days
+        type: string
+
+
+    command: >-
+        python run.py  --input_artifact {input_artifact}  --output_artifact {output_artifact}  --output_type {output_type}  --output_description {output_description}  --min_price {min_price}  --max_price {max_price}  --min_days {min_days}  --max_days {max_days} 
