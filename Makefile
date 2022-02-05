@@ -20,7 +20,7 @@ linter:  ## Lint library files
 	-p mlops \
 	-f docker-compose.yml \
 	run --rm -w /opt mlops \
-	bash scripts/linter-code.sh steps/src/data_check/*.py
+	bash scripts/linter-code.sh steps/src/train_random_forest/*.py
 
 bash:  ## Open an interactive terminal in Docker container
 	docker-compose \
@@ -51,3 +51,9 @@ data-check:  ## Perform some tests on the dataset
 	-p data-check \
 	-f docker-compose.yml \
 	run --rm data-check
+
+data-split:  ## Split the dataset to use in ML pipeline
+	docker-compose \
+	-p data-split \
+	-f docker-compose.yml \
+	run --rm data-split
