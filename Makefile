@@ -57,3 +57,9 @@ data-split:  ## Split the dataset to use in ML pipeline
 	-p data-split \
 	-f docker-compose.yml \
 	run --rm data-split
+
+train-model:  ## Train a Random Forest
+	docker-compose \
+	-p train-model \
+	-f docker-compose.yml \
+	run --rm train-model
