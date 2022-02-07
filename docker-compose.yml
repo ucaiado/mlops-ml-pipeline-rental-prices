@@ -194,6 +194,6 @@ services:
       bash -c """
       source activate mlops_exercise
       && mlflow run --no-conda https://github.com/ucaiado/mlops-ml-pipeline-rental-prices.git#steps
-      -v main
+      -v 1.0.1
       -P hydra_options="etl.sample='sample2.csv'"
       """
