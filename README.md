@@ -10,8 +10,8 @@ This project is part of the [ ML DevOps Engineer Nanodegree](https://www.udacity
 
 
 ### Install
-To set up your environment to run the code in this repository, start by
- installing Docker in your machine. Then, start Docker Desktop and run.
+To set up your environment to run the codes in this repository, start by
+ installing Docker in your machine. Then, start Docker Desktop and run:
 
 ```shell
 $ make
@@ -22,10 +22,10 @@ $ make docker-build
 ### Run
 In a terminal or command window, navigate to the top-level project directory
  `mlops-ml-pipeline-rental-prices/` (that contains this README) and run the
- following command.
+ following command:
 
 ```shell
-$ make ...
+$ make test-on-new-data
 ```
 
 

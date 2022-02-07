@@ -75,3 +75,9 @@ test-model:  ## Tests the model selected
 	-p test-model \
 	-f docker-compose.yml \
 	run --rm test-model
+
+test-on-new-data:  ## Tests the model on new data
+	docker-compose \
+	-p test-on-new-data \
+	-f docker-compose.yml \
+	run --rm test-on-new-data

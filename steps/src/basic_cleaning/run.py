@@ -50,6 +50,14 @@ def basic_cleaning(args: argparse.Namespace) -> None:
     logger.info("Converting last_review to datetime")
     df_data['last_review'] = pd.to_datetime(df_data['last_review'])
 
+    # drop data that is not from the desired geolocation
+    logger.info("Fixing dataset that are not in the proper geolocation")
+    idx = (
+        df_data['longitude'].between(-74.25, -73.50) &
+        df_data['latitude'].between(40.5, 41.2)
+        )
+    df_data = df_data[idx].copy()
+
     # Upload data to W&B as a new artifact
     logger.info("Saving file")
     filename = "clean_sample.csv"
