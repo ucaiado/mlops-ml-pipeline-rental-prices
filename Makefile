@@ -69,3 +69,9 @@ optimize-hyperparams:  ## Optimize model hyperparameters
 	-p optimize-hyperparams \
 	-f docker-compose.yml \
 	run --rm optimize-hyperparams
+
+test-model:  ## Tests the model selected
+	docker-compose \
+	-p test-model \
+	-f docker-compose.yml \
+	run --rm test-model
