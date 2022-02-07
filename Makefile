@@ -63,3 +63,9 @@ train-model:  ## Train a Random Forest
 	-p train-model \
 	-f docker-compose.yml \
 	run --rm train-model
+
+optimize-hyperparams:  ## Optimize model hyperparameters
+	docker-compose \
+	-p optimize-hyperparams \
+	-f docker-compose.yml \
+	run --rm optimize-hyperparams
